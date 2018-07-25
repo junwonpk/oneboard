@@ -7,7 +7,7 @@ class User(object):
     def __init__(self):
         self.name = "Junwon"
         self.email = "t-jupark@microsoft.com"
-        self.role = "A Software Engineering Intern"
+        self.role = "a Software Engineering Intern"
         self.team = "Intune Data Team"
         self.managerName = "Somesh Goel"
         self.managerEmail = "sgoel@microsoft.com"
@@ -59,4 +59,4 @@ class User(object):
         if name:
             return name[0].title()
         else:
-            return [] 
+            return []
