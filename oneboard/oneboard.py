@@ -42,7 +42,9 @@ def chapter1(message):
     user.chapter += 1
 
 def chapter2(message):
-    user.name = extract_name(message.body)
+    print(message)
+    print(message.body["text"])
+    user.name = extract_name(message.body["text"])
     message.reply("Your name is {}".format(user.name))
 
 def extract_name(message):
