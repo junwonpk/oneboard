@@ -15,13 +15,13 @@ excludes = (
     '*local_settings*',
 ) # yapf: disable
 
-setup(name='slackbot',
+setup(name='oneboard',
       version=__version__,
       license='MIT',
-      description='A simple chat bot for Slack',
-      author='Shuai Lin',
-      author_email='linshuai2012@gmail.com',
-      url='http://github.com/lins05/slackbot',
+      description='A Constantly Self-Improving Slack Chatbot for Automated Onboarding of New Hires',
+      author='Junwon Park',
+      author_email='junwonpk@stanford.edu',
+      url='http://github.com/junwonpk/oneboard',
       platforms=['Any'],
       packages=find_packages(exclude=excludes),
       install_requires=install_requires,
