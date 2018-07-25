@@ -5,14 +5,15 @@ userDataFilePath = './userDataFile.pickle'
 
 class User(object):
     def __init__(self):
-        self.name = "unknown"
-        self.email = "unknown@microsoft.com"
-        self.role = "Software Engineering Intern"
+        self.name = "Junwon"
+        self.email = "t-jupark@microsoft.com"
+        self.role = "A Software Engineering Intern"
         self.team = "Intune Data Team"
         self.managerName = "Somesh Goel"
         self.managerEmail = "sgoel@microsoft.com"
-        self.thingsToTeach = ["Intune", "Ibiza", "1ES"]
+        self.thingsToTeach = ["1ES", "Intune", "Ibiza"]
         self.thingsTaught = ["Benefits", "Signature Event"]
+        self.chapter = 0
         self.saveUserData()
 
     def initUserData(self):
