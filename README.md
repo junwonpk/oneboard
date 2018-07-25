@@ -18,3 +18,7 @@ Keep oneboard/oneboard.py concise by writing as much of your addition as separat
 
 ## Testing Slack Bot
 Log in to microsoftoneboard.slack.com then open a new DM chat with the app "Oneboard". Then send it some messages!
+
+## Backlog
+1. Bring IntentClassifier in.
+2. Instead of chapter+=1 to advance, check for user.thingsToTeach, until it becomes empty.
