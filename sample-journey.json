@@ -1,71 +1,77 @@
 {
-  "position": {
-    "fte": {
-      
+  "journey": {
+    "position": {
+      "fte": {
+        
+      },
+      "intern": {
+        "name": "Microsoft Intern",
+        "docs": [1, 2, 3, 4]
+      }
     },
-    "intern": {
-      "name": "Microsoft Intern",
-      "docs": [
-        {
-          "name": "DOC1 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC2 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC3 NAME",
-          "link": "http://www.google.com"
-        }
-      ]
+    "role": {
+    	"software-engineer": {
+    	  "name": "Software Engineering",
+        "docs": [5, 6, 7]
+    	},
+    	"program-manager": {
+
+    	}, 
+    	"data-scientist": {
+
+    	},
+    	"production-engineer": {
+
+    	}
+    },
+    "team": {
+      "msn": {
+        "name": "Microsoft News",
+        "docs": [8, 9, 10]
+      }
     }
   },
-  "role": {
-  	"software-engineer": {
-  	  "name": "Microsoft News",
-      "docs": [
-        {
-          "name": "DOC100 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC200 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC300 NAME",
-          "link": "http://www.google.com"
-        }
-      ]
-  	},
-  	"program-manager": {
-
-  	}, 
-  	"data-scientist": {
-
-  	},
-  	"production-engineer": {
-
-  	}
-  },
-  "team": {
-    "msn": {
-      "name": "Microsoft News",
-      "docs": [
-        {
-          "name": "DOC10 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC20 NAME",
-          "link": "http://www.google.com"
-        },
-        {
-          "name": "DOC30 NAME",
-          "link": "http://www.google.com"
-        }
-      ]
-    }
+  "docs": {
+    "1": {
+      "name": "MS Intern Ramp",
+      "link": "https://microsoft.sharepoint.com/:p:/r/teams/MicrosoftInterns/_layouts/15/Doc.aspx?sourcedoc=%7B51673942-0c1c-4b6e-8a88-ca7f407d61b2%7D&action=default&uid=%7B51673942-0C1C-4B6E-8A88-CA7F407D61B2%7D&ListItemId=27&ListId=%7BA524D851-06A6-487A-BE67-3C7083F96EF6%7D&odsp=1&env=prodbubble"
+    },
+    "2": {
+      "name": "Day 1: Set expectations for the first meeting",
+      "link": "https://microsoft.sharepoint.com/:w:/r/teams/microsoftinterns/_layouts/15/doc.aspx?sourcedoc=%7Bae4b62e2-e63c-46a4-9363-3d710777bbab%7D&file=set%20expectations%20in%20the%20first%20meeting.docx&action=default&mobileredirect=true"
+    },
+    "3": {
+      "name": "Verify you have Air, Food, Water",
+      "link": "https://microsoft.sharepoint.com/:w:/r/teams/microsoftinterns/_layouts/15/doc.aspx?sourcedoc=%7B83552f3b-02bf-421c-b29c-65238a131f55%7D&file=verify%20you%20have%20air%2C%20food%20and%20water.docx&action=default&mobileredirect=true"
+    },
+    "4": {
+      "name": "Microsoft Internship Benefits",
+      "link": "https://microsoft.sharepoint.com/teams/MicrosoftInterns/Shared%20Documents/Forms/AllItems.aspx?web=1&FolderCTID=0x012000B82DCF9CE3C9014493078F631D189BA5&id=%2Fteams%2FMicrosoftInterns%2FShared%20Documents%2FRelocation%20Information%2FMicrosoft%20Internship%20Benefits_Puget%20Sound%2Epdf&parent=%2Fteams%2FMicrosoftInterns%2FShared%20Documents%2FRelocation%20Information"
+    },
+    "5": {
+      "name": "Intune Wiki",
+      "link": "http://intunewiki.com/"
+    },
+    "6": {
+      "name": "Cortana Wiki",
+      "link": "cortanawiki.azurewebsites.net"
+"
+    },
+    "7": {
+      "name": "Deep Symantic Similarity Metric: DSSM",
+      "link": "https://microsoft.sharepoint.com/teams/DSSM_Text_Processing/SitePages/Home.aspx"
+    },
+    "8": {
+      "name": "Microsoft News: Big Bets",
+      "link": "https://microsoft.sharepoint.com/:p:/r/teams/MicrosoftNewsRedmondDesignEngineering/_layouts/15/Doc.aspx?sourcedoc=%7B683d2054-13f5-4b2d-b9de-a65f9e0ceef2%7D&action=edit&uid=%7B683D2054-13F5-4B2D-B9DE-A65F9E0CEEF2%7D&ListItemId=2&ListId=%7B1C6B7DD6-590C-4F69-8B53-19BDCD534E0C%7D&odsp=1&env=prodbubble"
+    },
+    "9": {
+      "name": "Current Design Workflow",
+      "link": "https://microsoft.sharepoint.com/:x:/r/teams/MicrosoftNewsRedmondDesignEngineering/_layouts/15/Doc.aspx?sourcedoc=%7B8beddc12-d6f1-4af9-9f69-c77f7c572ae9%7D&action=default&uid=%7B8BEDDC12-D6F1-4AF9-9F69-C77F7C572AE9%7D&ListItemId=3&ListId=%7B1C6B7DD6-590C-4F69-8B53-19BDCD534E0C%7D&odsp=1&env=prodbubble"
+    },
+    "10": {
+      "name": "Design Exploration and Priorities",
+      "link": "https://microsoft.sharepoint.com/:o:/r/teams/MicrosoftNewsRedmondDesignEngineering/_layouts/15/WopiFrame.aspx?sourcedoc=%7B95DA8898-8CA4-4817-BCCA-E78F7874B21C%7D&file=Design%20Explorations%20%26%20Priorities&action=default&IsFolder=1&ListId=%7B1C6B7DD6-590C-4F69-8B53-19BDCD534E0C%7D&ListItemId=4"
+    },
   }
 }
