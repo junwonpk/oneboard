@@ -74,7 +74,7 @@ class Oneboard(object):
             if (self.user.thingsToTeach):
                 next = self.user.thingsToTeach.pop()
                 # TODO: save in things taught.
-                thingsTaught.append(next)
+                self.user.thingsTaught.append(next)
                 if(self.user.isNew):
                     message.reply("Welcome, " + self.user.name + "! So excited to have you at Microsoft. Let's get you onboarded!")
                     message.reply("The first thing that we'll go over is " + next + ".")
@@ -91,7 +91,7 @@ class Oneboard(object):
             if(self.UserSaysGoOn(message, responseAI)):
                 next = self.user.thingsToTeach.pop()
                 # TODO: save in things taught.
-                thingsTaught.append(next)
+                self.user.thingsTaught.append(next)
                 message.reply("The next thing that we'll go over is " + next + ".")
                 # resource = self.getStaticResource(next)
                 message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
@@ -107,7 +107,6 @@ class Oneboard(object):
                 else:
                     message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager and teach me the info.")
                     message.reply("When you are ready, please type in the question you asked.")
-                    self.incrementState()
         elif(self.user.chapter == 2):
             self.user.lastUnansweredQuestion = message.body["text"]
             message.reply("Got it. And what was the answer?")

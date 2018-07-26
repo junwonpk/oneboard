@@ -26,6 +26,7 @@ class User(object):
         self.recommender = RecommenderAI(self.email)
         self.addThingsToTeach()
         self.updateRecommended()
+        self.thingsToTeach = list(set(self.thingsToTeach))
 
     def addThingsToTeach(self):
         file = json.loads(open('./oneboard/sample-journey.json').read())
