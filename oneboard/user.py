@@ -14,6 +14,7 @@ class User(object):
         self.position = "Intern"
         self.managerName = "Somesh Goel"
         self.managerEmail = "sgoel@microsoft.com"
+        # self.thingsToTeach = ["Intune", "Ibiza", "1ES"]
         self.thingsToTeach = []
         self.thingsTaught = []
         self.recommendedThingsToTeach = []
@@ -22,8 +23,10 @@ class User(object):
         self.lastUnansweredQuestion = ""
         self.faq = {}
         self.recommender = RecommenderAI(self.email)
+        self.addThingsToTeach()
+        self.updateRecommended()
 
-    def addThingsToTeach(self): 
+    def addThingsToTeach(self):
         file = json.loads(open('sample-journey.json').read())
         docs = file['docs']
         journey = file['journey']
@@ -31,7 +34,6 @@ class User(object):
         roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]
         teamDocs = journey['team'].get(self.team.lower(), {"docs": []})["docs"]
         self.thingsToTeach = positionDocs + roleDocs + teamDocs
-
 
     def updateRecommended(self):
         recommended = set(self.recommender.user_recommendations()) - set(self.thingsTaught)
