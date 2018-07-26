@@ -118,6 +118,7 @@ class ResponseAI(object):
         question = self.clean_line(question)
         question_sentencevec = self.get_sentencevec(question)
         result, confident = self.find_shortest(question_sentencevec)
+        return result, confident
 
     def intentClassifier(self, message):
         message_vec = self.sentence2vec(message.split(' '))
