@@ -33,10 +33,11 @@ class Oneboard(object):
             chapters[chapter] = eval('self.chapter' + str(chapter))
         return chapters
 
-    def CanFindInFAQ(self, message): # return true if in FAQ AND Confident, false else.
-        return True #TODO: FAQ classifier here
+    def CanFindInFAQ(self, message, responseAI):
+        faq_index, distance = responseAI.decide_question(message.body["text"])
+        return distance
 
-    def GetFAQSolution(self, message):
+    def GetFAQSolution(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
         return str(faq_index)
 
@@ -72,14 +73,14 @@ class Oneboard(object):
                 message.reply("Awesome! Looks like you finished the onboarding process!")
         elif(self.user.chapter == 1):
             message.reply("Does everything make sense? Let me know if you're ready to move on or if you have a question.")
-            if(self.UserSaysGoOn(message.body["text"])):
+            if(self.UserSaysGoOn(message, responseAI)):
                 self.decrementState()
             else:
                 self.incrementState()
         elif(self.user.chapter == 2):
             message.reply("Let me see if I can help...")
-            if (self.CanFindInFAQ(message.body["text"])):
-                solution = self.GetFAQSolution()
+            if (self.CanFindInFAQ(message, responseAI)):
+                solution = self.GetFAQSolution(message, responseAI)
                 message.reply("I suggest that you try the following: " + solution)
                 self.decrementState()
             else:

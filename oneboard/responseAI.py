@@ -27,7 +27,6 @@ class ResponseAI(object):
             word = splitLine[0]
             embedding = np.array([float(val) for val in splitLine[1:]])
             model[word] = embedding
-            if (count % 1000000) == 0: print count
         return model
 
     def clean_sentence(self, docs):
@@ -39,7 +38,6 @@ class ResponseAI(object):
     def build_frequency_dictionary(self):
         word_frequency_data = [line.rstrip('\n') for line in open('./data/20k.txt')]
         word_frequency_data = {k: v for v, k in enumerate(word_frequency_data)}
-        #print(type(word_frequency_data))
         return word_frequency_data
 
     def set_base_faq_sentencevecs(self):
@@ -49,7 +47,6 @@ class ResponseAI(object):
             self.faq_vectors.append(self.get_sentencevec(line))
 
     def clean_line(self, line_to_clean):
-        print(line_to_clean)
         common_words = [line.rstrip('\n').lower() for line in open('./data/common-50.txt')]
         line_to_clean = re.sub('[^a-zA-Z ]', '', line_to_clean)
         line_to_clean = [word for word in line_to_clean.lower().split()]
