@@ -6,7 +6,7 @@ import re
 class ResponseAI(object):
 
     def __init__(self):
-        self.model = self.loadGloveModel("./data/glove.42B.300d.txt")
+        self.model = self.loadGloveModel("./data/glove.6B.300d.txt")
         self.freq_dict = self.build_frequency_dictionary()
         self.faq_vectors = [] #This is a list of SENTENCE VECTORS
         self.DICT_CONSTANT = len(self.freq_dict)

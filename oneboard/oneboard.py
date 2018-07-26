@@ -13,25 +13,21 @@ class Oneboard(object):
     def reset(self):
         self.user.removeUserData()
 
-<<<<<<< HEAD
     def processMessage(self, message, responseAI):
         print "message received"
         if responseAI.intentClassifier(message.body["text"]):
             message.reply("intent classifier says: true")
         else:
             message.reply("intent classifier says: false")
-=======
+        faq, conf = responseAI.decide_question(message.body["text"])
+        message.reply("faq classifier says: {} with {} confidence".format(faq, conf))
+
     def saveNewFAQAnswer(answerToQuestion):
         self.user.faq[self.user.lastUnansweredQuestion] = answerToQuestion
         self.user.lastUnansweredQuestion = ""
->>>>>>> d44decb6222f538c670f80740b5b94cd3bdbceb0
 
     def UserSaysGoOn(self, message): # return true if go on, false if stay
         return True #TODO: intent classifier here
-
-<<<<<<< HEAD
-        faq, conf = responseAI.decide_question(message.body["text"])
-        message.reply("faq classifier says: {} with {} confidence".format(faq, conf))
 
         # chapters = self.loadChapters()
         # chapter = chapters[self.user.chapter]
@@ -45,10 +41,9 @@ class Oneboard(object):
         for chapter in xrange(self.lastChapter + 1):
             chapters[chapter] = eval('self.chapter' + str(chapter))
         return chapters
-=======
+
     def CanFindInFAQ(self, message): # return true if in FAQ AND Confident, false else.
         return True #TODO: FAQ classifier here
->>>>>>> d44decb6222f538c670f80740b5b94cd3bdbceb0
 
     def GetFAQSolution(self, message):
         return "A MAGICAL SOLUTION"
@@ -70,40 +65,40 @@ class Oneboard(object):
     # Chapter 3: The question could not be solved, and we are awaiting the user
     # to manually input the answer so that the chatbot can become smarter.
 
-    def processMessage(self, message):
-        # chapters = self.loadChapters()
-        # chapter = chapters[self.user.chapter]
-        # chapter(message)
-
-        # ##body text is message.body["text"]
-        if(self.user.chapter == 0):
-            if (self.user.thingsToTeach):
-                next = self.user.thingsToTeach.pop()
-                message.reply("The next thing that we'll go over is " + next + ".")
-                self.incrementState()
-            else:
-                message.reply("Awesome! Looks like you finished the onboarding process!")
-        elif(self.user.chapter == 1):
-            message.reply("Does everything make sense? Let me know if you're ready to move on or if you have a question.")
-            if(self.UserSaysGoOn(message.body["text"])):
-                self.decrementState()
-            else:
-                self.incrementState()
-        elif(self.user.chapter == 2):
-            message.reply("Let me see if I can help...")
-            if (self.CanFindInFAQ(message.body["text"])):
-                solution = self.GetFAQSolution()
-                message.reply("I suggest that you try the following: " + solution)
-                self.decrementState()
-            else:
-                message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")
-                self.user.lastUnansweredQuestion = message.body["text"]
-                message.reply("If you get an answer, please type it in so that I can get smarter.")
-                self.incrementState()
-        elif(self.user.chapter == 3):
-            self.saveNewFAQAnswer(message.body["text"])
-            self.decrementState()
-            self.decrementState()
+    # def processMessage(self, message):
+    #     # chapters = self.loadChapters()
+    #     # chapter = chapters[self.user.chapter]
+    #     # chapter(message)
+    #
+    #     # ##body text is message.body["text"]
+    #     if(self.user.chapter == 0):
+    #         if (self.user.thingsToTeach):
+    #             next = self.user.thingsToTeach.pop()
+    #             message.reply("The next thing that we'll go over is " + next + ".")
+    #             self.incrementState()
+    #         else:
+    #             message.reply("Awesome! Looks like you finished the onboarding process!")
+    #     elif(self.user.chapter == 1):
+    #         message.reply("Does everything make sense? Let me know if you're ready to move on or if you have a question.")
+    #         if(self.UserSaysGoOn(message.body["text"])):
+    #             self.decrementState()
+    #         else:
+    #             self.incrementState()
+    #     elif(self.user.chapter == 2):
+    #         message.reply("Let me see if I can help...")
+    #         if (self.CanFindInFAQ(message.body["text"])):
+    #             solution = self.GetFAQSolution()
+    #             message.reply("I suggest that you try the following: " + solution)
+    #             self.decrementState()
+    #         else:
+    #             message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")
+    #             self.user.lastUnansweredQuestion = message.body["text"]
+    #             message.reply("If you get an answer, please type it in so that I can get smarter.")
+    #             self.incrementState()
+    #     elif(self.user.chapter == 3):
+    #         self.saveNewFAQAnswer(message.body["text"])
+    #         self.decrementState()
+    #         self.decrementState()
 
     def loadChapters(self):
         chapters = {}
