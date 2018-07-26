@@ -15,7 +15,7 @@ class Oneboard(object):
     def reset(self):
         self.user.removeUserData()
 
-    def saveNewFAQAnswer(answerToQuestion):
+    def saveNewFAQAnswer(self, answerToQuestion):
         self.user.faq[self.user.lastUnansweredQuestion] = answerToQuestion
         self.user.lastUnansweredQuestion = ""
 
