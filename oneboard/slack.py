@@ -3,6 +3,11 @@ from slackbot.bot import listen_to
 import re
 
 from oneboard import Oneboard
+from responseAI import ResponseAI
+
+print "loading responseAI"
+responseAI =  ResponseAI()
+print "loaded responseAI"
 
 @respond_to('sudo reset')
 def reset(message):
@@ -13,7 +18,7 @@ def reset(message):
 @respond_to('.*')
 def processMessage(message):
     oneboard = Oneboard()
-    oneboard.processMessage(message)
+    oneboard.processMessage(message, responseAI)
 
 # @respond_to('My name is (.*)')
 # def learnName(message, name):

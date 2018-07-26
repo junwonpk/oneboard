@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from user import User
+from responseAI import ResponseAI
 import re
 
 class Oneboard(object):
@@ -16,14 +17,28 @@ class Oneboard(object):
         self.user.faq[self.user.lastUnansweredQuestion] = answerToQuestion
         self.user.lastUnansweredQuestion = ""
 
-    def UserSaysGoOn(self, message): # return true if go on, false if stay
-        return True #TODO: intent classifier here
+    def UserSaysGoOn(self, message, responseAI): # return true if go on, false if stay
+        return responseAI.intentClassifier(message.body["text"])
+
+        # chapters = self.loadChapters()
+        # chapter = chapters[self.user.chapter]
+        # chapter(message)
+        # # body text is message.body["text"]
+        # self.user.chapter += 1
+        # self.user.saveUserData()
+
+    def loadChapters(self):
+        chapters = {}
+        for chapter in xrange(self.lastChapter + 1):
+            chapters[chapter] = eval('self.chapter' + str(chapter))
+        return chapters
 
     def CanFindInFAQ(self, message): # return true if in FAQ AND Confident, false else.
         return True #TODO: FAQ classifier here
 
     def GetFAQSolution(self, message):
-        return "A MAGICAL SOLUTION"
+        faq_index, distance = responseAI.decide_question(message.body["text"])
+        return str(faq_index)
 
     def incrementState(self):
         self.user.chapter += 1
@@ -42,7 +57,7 @@ class Oneboard(object):
     # Chapter 3: The question could not be solved, and we are awaiting the user
     # to manually input the answer so that the chatbot can become smarter.
 
-    def processMessage(self, message):
+    def processMessage(self, message, responseAI):
         # chapters = self.loadChapters()
         # chapter = chapters[self.user.chapter]
         # chapter(message)

@@ -8,7 +8,7 @@ from oauth2client import file, client, tools
 service = None
 
 def setup():
-    global service 
+    global service
     SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly'
     store = file.Storage('token.json')
     creds = store.get()
@@ -48,9 +48,9 @@ def search(query, limit=10):
         page_token = response.get('nextPageToken', None)
         if page_token is None:
             break
-            
+
     for name, fileID in filelist[:limit]:
         print ('Found file: %s (%s)' % (name, fileID))
-                            
+
 setup()
 search('Microsoft')
