@@ -43,10 +43,11 @@ class ResponseAI(object):
         return word_frequency_data
 
     def set_base_faq_sentencevecs(self):
-        lines = [line.rstrip('\n') for line in open('./data/faq.txt')]
-        for line in lines:
-            line = self.clean_line(line)
-            self.faq_vectors.append(self.get_sentencevec(line))
+        questions = self.database.faq.keys()
+        # lines = [line.rstrip('\n') for line in open('./data/faq.txt')]
+        for question in questions:
+            question = self.clean_line(question)
+            self.faq_vectors.append(self.get_sentencevec(question))
 
     def clean_line(self, line_to_clean):
         common_words = [line.rstrip('\n').lower() for line in open('./data/common-50.txt')]
@@ -95,6 +96,7 @@ class ResponseAI(object):
         min_values = []
         for i in range(len(self.faq_vectors)):
             min_values.append(scipy.spatial.distance.euclidean(question_sentencevec, self.faq_vectors[i]))
+        print(np.min(min_values))
         return np.argmin(min_values), np.min(min_values)
 
     # # message is an array
@@ -121,7 +123,8 @@ class ResponseAI(object):
         return result, confident
 
     def intentClassifier(self, message):
-        message_vec = self.get_sentencevec(message.split(' '))
+        message = self.clean_line(message)
+        message_vec = self.get_sentencevec(message)
 
         # no_dots = self.no_vectors.dot(message_vec)
         # max_no = no_dots.max()
