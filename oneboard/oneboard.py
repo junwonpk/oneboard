@@ -37,7 +37,7 @@ class Oneboard(object):
 
     def CanFindInFAQ(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
-        return distance
+        return distance < self.database.faqMaxDistance
 
     def GetFAQSolution(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
@@ -70,38 +70,40 @@ class Oneboard(object):
         # chapter(message)
 
         # ##body text is message.body["text"]
-        file = json.loads(open('sample-journey.json').read())
-        docs = file['docs']
-
         if(self.user.chapter == 0):
+            # TODO: flag for a completely new hire. Special welcome, and say the FIRST thing to learn..
             if (self.user.thingsToTeach):
-                nextItemName = self.user.thingsToTeach.pop()
-                next = docs.get(nextItemName, {"name": nextItemName, "link": "aka.ms/msw"})
-                message.reply("The next thing that we'll go over is " + next['name'] + '.')
-                resource = self.getStaticResource(next)
-                message.reply("Please take a look at " + next['link'] + "and let me know when you finish.")
+                next = self.user.thingsToTeach.pop()
+                # TODO: save in things taught.
+                message.reply("The next thing that we'll go over is " + next + ".")
+                # resource = self.getStaticResource(next)
+                message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
+                message.reply("If you aren't, ask me any question you have!")
                 self.incrementState()
             else:
                 message.reply("Awesome! Looks like you finished the onboarding process!")
         elif(self.user.chapter == 1):
-            message.reply("Ready to move on?")
             if(self.UserSaysGoOn(message, responseAI)):
                 self.decrementState()
             else:
                 self.incrementState()
+                message.reply("Ah. Let me see if I can help...")
+                # TODO: special guard. if we tried FAQ once, and returned here, force move to new FAQ
+                if (self.CanFindInFAQ(message, responseAI)):
+                    solution = self.GetFAQSolution(message, responseAI)
+                    message.reply("Can you try the following: LINK TO QUESTION " + solution + " and tell me if it works?")
+                else:
+                    message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager and teach me the info.")
+                    message.reply("When you are ready, please type in the question you asked.")
+                    self.incrementState()
         elif(self.user.chapter == 2):
-            message.reply("Ah. Let me see if I can help...")
-            if (self.CanFindInFAQ(message, responseAI)):
-                solution = self.GetFAQSolution(message, responseAI)
-                message.reply("Can you try the following: LINK TO QUESTION " + solution + " and tell me if it works?")
-                self.decrementState()
-            else:
-                message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")
-                self.user.lastUnansweredQuestion = message.body["text"]
-                message.reply("If you get an answer, please type it in so that I can get smarter.")
-                self.incrementState()
+            self.user.lastUnansweredQuestion = message.body["text"]
+            message.reply("Got it. And what was the answer?")
+            self.incrementState()
         elif(self.user.chapter == 3):
             self.saveNewFAQAnswer(message.body["text"])
+            message.reply("Got it. Now I learnt something new!")
+            message.reply("Should we move on to the next topic?")
             self.decrementState()
             self.decrementState()
 

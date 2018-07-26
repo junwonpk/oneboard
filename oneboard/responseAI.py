@@ -8,7 +8,7 @@ class ResponseAI(object):
 
     def __init__(self):
         self.database = Database()
-        self.model = self.loadGloveModel("./data/glove.42B.300d.txt")
+        self.model = self.loadGloveModel("./data/glove.6B.300d.txt")
         self.freq_dict = self.build_frequency_dictionary()
         self.faq_vectors = [] #This is a list of SENTENCE VECTORS
         self.DICT_CONSTANT = len(self.freq_dict)
@@ -23,12 +23,14 @@ class ResponseAI(object):
         f = open(gloveFile,'r')
         model = {}
         count = 0
+        print("loading glove")
         for line in f:
             count += 1
             splitLine = line.split()
             word = splitLine[0]
             embedding = np.array([float(val) for val in splitLine[1:]])
             model[word] = embedding
+        print("loaded glove")
         return model
 
     def clean_sentence(self, docs):
@@ -116,14 +118,14 @@ class ResponseAI(object):
 
     def decide_question(self, question):
         question = self.clean_line(question)
-        if len(question) == 1: question.append("random")
+        if len(question) == 1: question.append("yes")
         question_sentencevec = self.get_sentencevec(question)
         result, confident = self.find_shortest(question_sentencevec)
         return result, confident
 
     def intentClassifier(self, message):
         message = self.clean_line(message)
-        if len(message) == 1: message.append("random")
+        if len(message) == 1: message.append("yes")
         message_vec = self.get_sentencevec(message)
 
         # no_dots = self.no_vectors.dot(message_vec)
@@ -136,4 +138,5 @@ class ResponseAI(object):
         yes_scores = np.matmul(message_vec, self.yes_vectors.T)
         max_yes = np.max(yes_scores)
 
-        return max_yes > max_no
+        print(max_yes >= max_no)
+        return max_yes >= max_no
