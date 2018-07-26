@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from user import User
+from responseAI import ResponseAI
 import re
 
 class Oneboard(object):
@@ -12,14 +13,23 @@ class Oneboard(object):
     def reset(self):
         self.user.removeUserData()
 
-    def processMessage(self, message):
-        chapters = self.loadChapters()
-        chapter = chapters[self.user.chapter]
-        chapter(message)
-        # body text is message.body["text"]
-        self.user.chapter += 1
-        self.user.saveUserData()
+    def processMessage(self, message, responseAI):
+        print "message received"
+        if responseAI.intentClassifier(message.body["text"]):
+            message.reply("intent classifier says: true")
+        else:
+            message.reply("intent classifier says: false")
 
+
+        faq, conf = responseAI.decide_question(message.body["text"])
+        message.reply("faq classifier says: {} with {} confidence".format(faq, conf))
+
+        # chapters = self.loadChapters()
+        # chapter = chapters[self.user.chapter]
+        # chapter(message)
+        # # body text is message.body["text"]
+        # self.user.chapter += 1
+        # self.user.saveUserData()
 
     def loadChapters(self):
         chapters = {}
