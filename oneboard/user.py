@@ -14,6 +14,7 @@ class User(object):
         self.position = "Intern"
         self.managerName = "Somesh Goel"
         self.managerEmail = "sgoel@microsoft.com"
+        # self.thingsToTeach = ["Intune", "Ibiza", "1ES"]
         self.thingsToTeach = []
         self.thingsTaught = []
         self.recommendedThingsToTeach = []
@@ -25,8 +26,9 @@ class User(object):
         self.addThingsToTeach()
         self.updateRecommended()
 
-    def addThingsToTeach(self): 
-        file = json.loads(open('sample-journey.json').read())
+    def addThingsToTeach(self):
+        file = json.loads(open('./oneboard/sample-journey.json').read())
+        docs = file['docs']
         journey = file['journey']
         positionDocs = journey['position'].get(self.position.lower(), {"docs": []})["docs"]
         roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]

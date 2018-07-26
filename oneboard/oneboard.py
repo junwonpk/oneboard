@@ -84,7 +84,12 @@ class Oneboard(object):
                 message.reply("Awesome! Looks like you finished the onboarding process!")
         elif(self.user.chapter == 1):
             if(self.UserSaysGoOn(message, responseAI)):
-                self.decrementState()
+                next = self.user.thingsToTeach.pop()
+                # TODO: save in things taught.
+                message.reply("The next thing that we'll go over is " + next + ".")
+                # resource = self.getStaticResource(next)
+                message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
+                message.reply("If you aren't, ask me any question you have!")
             else:
                 self.incrementState()
                 message.reply("Ah. Let me see if I can help...")
