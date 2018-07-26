@@ -7,6 +7,7 @@ from database import Database
 class ResponseAI(object):
 
     def __init__(self):
+        self.database = Database()
         self.model = self.loadGloveModel("./data/glove.42B.300d.txt")
         self.freq_dict = self.build_frequency_dictionary()
         self.faq_vectors = [] #This is a list of SENTENCE VECTORS
@@ -16,7 +17,6 @@ class ResponseAI(object):
         self.yes_vectors = np.squeeze(np.array([self.get_sentencevec(ans) for ans in self.yes_answers]))
         self.no_vectors = np.squeeze(np.array([self.get_sentencevec(ans) for ans in self.no_answers]))
         self.set_base_faq_sentencevecs()
-        self.database = Database()
 
     # solve glove model loading time
     def loadGloveModel(self, gloveFile):
