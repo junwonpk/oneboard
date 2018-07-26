@@ -51,7 +51,7 @@ class Oneboard(object):
         self.user.chapter = (self.user.chapter%4)
         self.user.saveUserData()
 
-    def getStaticResource(self, topic)
+    def getStaticResource(self, topic):
         static_info =  {'1ES':'aka.ms/1ES','Intune':'aka.ms/Intune','Ibiza':'aka.ms/Ibiza'}
         return static_info[topic]
 
