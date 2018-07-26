@@ -30,7 +30,6 @@ class User(object):
 
     def addThingsToTeach(self):
         file = json.loads(open('./oneboard/sample-journey.json').read())
-        docs = file['docs']
         journey = file['journey']
         positionDocs = journey['position'].get(self.position.lower(), {"docs": []})["docs"]
         roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from user import User
@@ -70,19 +70,20 @@ class Oneboard(object):
 
         # ##body text is message.body["text"]
         if(self.user.chapter == 0):
-            # TODO: flag for a completely new hire. Special welcome, and say the FIRST thing to learn..
+            file = json.loads(open('./oneboard/sample-journey.json').read())
+            docs = file['docs']
             if (self.user.thingsToTeach):
-                next = self.user.thingsToTeach.pop()
-                # TODO: save in things taught.
-                self.user.thingsTaught.append(next)
+                nextItemID = self.user.thingsToTeach.pop()
+                next = docs.get(nextItemName, {"name": nextItemID, "link": "aka.ms/msw"})
+                self.user.thingsTaught.append(nextItemID)
                 if(self.user.isNew):
                     message.reply("Welcome, " + self.user.name + "! So excited to have you at Microsoft. Let's get you onboarded!")
-                    message.reply("The first thing that we'll go over is " + next + ".")
+                    message.reply("The first thing that we'll go over is " + next['name'] + ".")
                     self.user.isNew = False
                 else:
-                    message.reply("The next thing that we'll go over is " + next + ".")
-                # resource = self.getStaticResource(next)
-                message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
+                    message.reply("The next thing that we'll go over is " + next['name'] + ".")
+
+                message.reply("Take a look at ' + next['link'] + ' and let me know when you are ready to move on.")
                 message.reply("If you aren't, ask me any question you have!")
                 self.incrementState()
             else:
