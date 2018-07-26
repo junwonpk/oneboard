@@ -1,1 +1,7 @@
 data
+oneboard/__init__.pyc
+oneboard/oneboard.pyc
+oneboard/responseAI.pyc
+oneboard/slack.pyc
+oneboard/user.pyc
+slackbot_settings.pyc
