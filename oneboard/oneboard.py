@@ -3,13 +3,11 @@
 
 from user import User
 from responseAI import ResponseAI
-from database import Database
 import re
 
 class Oneboard(object):
     def __init__(self):
         self.user = User.loadUserData()
-        self.database = Database()
         self.lastChapter = 4
 
     def reset(self):
@@ -41,7 +39,7 @@ class Oneboard(object):
 
     def GetFAQSolution(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
-        return self.database.faq.keys()[faq_index]
+        return str(faq_index)
 
     def incrementState(self):
         self.user.chapter += 1
@@ -52,6 +50,10 @@ class Oneboard(object):
         self.user.chapter -= 1
         self.user.chapter = (self.user.chapter%4)
         self.user.saveUserData()
+
+    def getStaticResource(self, topic):
+        static_info =  {'1ES':'aka.ms/1ES','Intune':'aka.ms/Intune','Ibiza':'aka.ms/Ibiza'}
+        return static_info[topic]
 
     ####Documentation for the four chapters####
     # Chapter 0: Gives the user the next thing that they'll go over
@@ -70,20 +72,22 @@ class Oneboard(object):
             if (self.user.thingsToTeach):
                 next = self.user.thingsToTeach.pop()
                 message.reply("The next thing that we'll go over is " + next + ".")
+                resource = self.getStaticResource(next)
+                message.reply("Please take a look at " + resource + "and let me know when you finish.")
                 self.incrementState()
             else:
                 message.reply("Awesome! Looks like you finished the onboarding process!")
         elif(self.user.chapter == 1):
-            message.reply("Does everything make sense? Let me know if you're ready to move on or if you have a question.")
+            message.reply("Ready to move on?")
             if(self.UserSaysGoOn(message, responseAI)):
                 self.decrementState()
             else:
                 self.incrementState()
         elif(self.user.chapter == 2):
-            message.reply("Let me see if I can help...")
+            message.reply("Ah. Let me see if I can help...")
             if (self.CanFindInFAQ(message, responseAI)):
                 solution = self.GetFAQSolution(message, responseAI)
-                message.reply("I suggest that you try the following: LINK TO " + solution)
+                message.reply("Can you try the following: " + solution + "and tell me if it works?")
                 self.decrementState()
             else:
                 message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")
