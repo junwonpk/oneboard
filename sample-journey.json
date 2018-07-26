@@ -1,5 +1,5 @@
 {
-  "new-hire": {
+  "position": {
     "fte": {
       
     },
@@ -20,6 +20,34 @@
         }
       ]
     }
+  },
+  "role": {
+  	"software-engineer": {
+  	  "name": "Microsoft News",
+      "docs": [
+        {
+          "name": "DOC100 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC200 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC300 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+  	},
+  	"program-manager": {
+
+  	}, 
+  	"data-scientist": {
+
+  	},
+  	"production-engineer": {
+
+  	}
   },
   "team": {
     "msn": {
