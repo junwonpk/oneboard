@@ -1,40 +1,51 @@
 # Collabrative Filtering data set taken from Collective Intelligence book.
 
 
-dataset={
-			'Lisa Rose': {'Lady in the Water': 2.5, 
-							'Snakes on a Plane': 3.5,
-							'Just My Luck': 3.0, 
-							'Superman Returns': 3.5, 
-							'You, Me and Dupree': 2.5,
-							'The Night Listener': 3.0},
-			'Gene Seymour': {'Lady in the Water': 3.0, 
-							'Snakes on a Plane': 3.5,
-							'Just My Luck': 1.5,
-							 'Superman Returns': 5.0, 
-							 'The Night Listener': 3.0,
-							'You, Me and Dupree': 3.5},
+dataset = {
+	't-takoth': {
+		1: 1,
+		2: 1,
+		3: 1
+	},
+	't-xinlan': {
+		1: 1,
+		2: 1,	
+		3: 1,
+		4: 1
+	},
+	't-jupark': {
+		1: 1,
+		2: 1,
+		5: 1
+	},
+	't-bobert': {
+		5: 1,
+		6: 1,
+		7: 1,
+		8: 1,
+		9: 1
+	},
+	't-johnwu': {
+		2: 1,
+		3: 1,
+		4: 1
+	},
+	't-jaspar': {
+		2: 1,
+		4: 1,
+		6: 1,
+		10: 1
+	},
+	't-casper': {
+		5: 1,
+		8: 1,
+		9: 1
+	},
+	't-archie': {
+		5: 1,
+		7: 1,
+		8: 1,
+		10: 1
+	},
 
-			'Michael Phillips': {'Lady in the Water': 2.5, 
-								'Snakes on a Plane': 3.0,
-								'Superman Returns': 3.5,
-								 'The Night Listener': 4.0},
-			'Claudia Puig': {'Snakes on a Plane': 3.5, 
-							'Just My Luck': 3.0,
-							'The Night Listener': 4.5, 
-							'Superman Returns': 4.0,
-							'You, Me and Dupree': 2.5},
-			'Mick LaSalle': {'Lady in the Water': 3.0, 
-							'Snakes on a Plane': 4.0,
-							'Just My Luck': 2.0, 
-							'Superman Returns': 3.0, 
-							'The Night Listener': 3.0,
-							'You, Me and Dupree': 2.0},
-			'Jack Matthews': {'Lady in the Water': 3.0, 
-							'Snakes on a Plane': 4.0,
-							'The Night Listener': 3.0, 
-							'Superman Returns': 5.0, 
-							'You, Me and Dupree': 3.5},
-			'Toby': {'Snakes on a Plane':4.5,
-					'You, Me and Dupree':1.0,
-					'Superman Returns':4.0}}
+}
