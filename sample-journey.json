@@ -1,0 +1,43 @@
+{
+  "new-hire": {
+    "fte": {
+      
+    },
+    "intern": {
+      "name": "Microsoft Intern",
+      "docs": [
+        {
+          "name": "DOC1 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC2 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC3 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+    }
+  },
+  "team": {
+    "msn": {
+      "name": "Microsoft News",
+      "docs": [
+        {
+          "name": "DOC10 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC20 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC30 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+    }
+  }
+}
