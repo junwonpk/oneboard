@@ -59,10 +59,9 @@ class Oneboard(object):
 
     ####Documentation for the four chapters####
     # Chapter 0: Gives the user the next thing that they'll go over
-    # Chapter 1: Checks if things make sense and whether we should move on
-    # Chapter 2: Answers a question by the user
-    # Chapter 3: The question could not be solved, and we are awaiting the user
-    # to manually input the answer so that the chatbot can become smarter.
+    # Chapter 1: Either gives next thing to go over or provides help
+    # Chapter 2: Gets user to answer question
+    # Chapter 3: Saves user answer and moves on
 
     def processMessage(self, message, responseAI):
         # chapters = self.loadChapters()
@@ -75,7 +74,13 @@ class Oneboard(object):
             if (self.user.thingsToTeach):
                 next = self.user.thingsToTeach.pop()
                 # TODO: save in things taught.
-                message.reply("The next thing that we'll go over is " + next + ".")
+                thingsTaught.append(next)
+                if(self.user.isNew):
+                    message.reply("Welcome, " + self.user.name + "! So excited to have you at Microsoft. Let's get you onboarded!")
+                    message.reply("The first thing that we'll go over is " + next + ".")
+                    self.user.isNew = False
+                else:
+                    message.reply("The next thing that we'll go over is " + next + ".")
                 # resource = self.getStaticResource(next)
                 message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
                 message.reply("If you aren't, ask me any question you have!")
@@ -86,6 +91,7 @@ class Oneboard(object):
             if(self.UserSaysGoOn(message, responseAI)):
                 next = self.user.thingsToTeach.pop()
                 # TODO: save in things taught.
+                thingsTaught.append(next)
                 message.reply("The next thing that we'll go over is " + next + ".")
                 # resource = self.getStaticResource(next)
                 message.reply("Please learn the term on MSW and let me know when you are ready to move on.")
@@ -97,6 +103,7 @@ class Oneboard(object):
                 if (self.CanFindInFAQ(message, responseAI)):
                     solution = self.GetFAQSolution(message, responseAI)
                     message.reply("Can you try the following: LINK TO QUESTION " + solution + " and tell me if it works?")
+                    #Stay in state here because if user says go on, you'll give them something to go over.
                 else:
                     message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager and teach me the info.")
                     message.reply("When you are ready, please type in the question you asked.")

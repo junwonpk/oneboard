@@ -19,6 +19,7 @@ class User(object):
         self.thingsTaught = []
         self.recommendedThingsToTeach = []
         self.chapter = 0
+        self.isNew = True
         self.saveUserData()
         self.lastUnansweredQuestion = ""
         self.faq = {}
