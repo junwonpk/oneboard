@@ -1,0 +1,71 @@
+{
+  "position": {
+    "fte": {
+      
+    },
+    "intern": {
+      "name": "Microsoft Intern",
+      "docs": [
+        {
+          "name": "DOC1 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC2 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC3 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+    }
+  },
+  "role": {
+  	"software-engineer": {
+  	  "name": "Microsoft News",
+      "docs": [
+        {
+          "name": "DOC100 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC200 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC300 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+  	},
+  	"program-manager": {
+
+  	}, 
+  	"data-scientist": {
+
+  	},
+  	"production-engineer": {
+
+  	}
+  },
+  "team": {
+    "msn": {
+      "name": "Microsoft News",
+      "docs": [
+        {
+          "name": "DOC10 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC20 NAME",
+          "link": "http://www.google.com"
+        },
+        {
+          "name": "DOC30 NAME",
+          "link": "http://www.google.com"
+        }
+      ]
+    }
+  }
+}
