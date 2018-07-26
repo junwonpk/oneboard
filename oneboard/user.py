@@ -15,6 +15,8 @@ class User(object):
         self.thingsTaught = ["Benefits", "Signature Event"]
         self.chapter = 0
         self.saveUserData()
+        self.lastUnansweredQuestion = ""
+        self.faq = {}
 
     def initUserData(self):
         with open(userDataFilePath, 'wb') as userDataFile:
