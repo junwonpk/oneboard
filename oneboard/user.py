@@ -22,15 +22,16 @@ class User(object):
         self.lastUnansweredQuestion = ""
         self.faq = {}
         self.recommender = RecommenderAI(self.email)
+        self.addThingsToTeach()
+        self.updateRecommended()
 
     def addThingsToTeach(self): 
-        file = json.loads(open('../sample-journey.json').read())
+        file = json.loads(open('sample-journey.json').read())
         journey = file['journey']
         positionDocs = journey['position'].get(self.position.lower(), {"docs": []})["docs"]
         roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]
         teamDocs = journey['team'].get(self.team.lower(), {"docs": []})["docs"]
         self.thingsToTeach = positionDocs + roleDocs + teamDocs
-
 
     def updateRecommended(self):
         recommended = set(self.recommender.user_recommendations()) - set(self.thingsTaught)

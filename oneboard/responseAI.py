@@ -69,7 +69,6 @@ class ResponseAI(object):
         #Sentence vector is sum of (wordvec for each word)*(1/1+f), where f is frequency.
         sentence_vec = []
         for word in line:
-            print(word)
             multiplier = (float(1e7)/float(1+self.get_weight(word)))
             wordvec = np.array([self.word_to_vec(word)])
             weighted_wordvec = multiplier*wordvec
@@ -96,7 +95,6 @@ class ResponseAI(object):
         min_values = []
         for i in range(len(self.faq_vectors)):
             min_values.append(scipy.spatial.distance.euclidean(question_sentencevec, self.faq_vectors[i]))
-        print(np.min(min_values))
         return np.argmin(min_values), np.min(min_values)
 
     # # message is an array
@@ -118,12 +116,14 @@ class ResponseAI(object):
 
     def decide_question(self, question):
         question = self.clean_line(question)
+        if len(question) == 1: question.append("random")
         question_sentencevec = self.get_sentencevec(question)
         result, confident = self.find_shortest(question_sentencevec)
         return result, confident
 
     def intentClassifier(self, message):
         message = self.clean_line(message)
+        if len(message) == 1: message.append("random")
         message_vec = self.get_sentencevec(message)
 
         # no_dots = self.no_vectors.dot(message_vec)

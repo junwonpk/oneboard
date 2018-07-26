@@ -3,12 +3,14 @@
 
 from user import User
 from responseAI import ResponseAI
+from database import Database
 import re
 
 class Oneboard(object):
     def __init__(self):
         self.user = User.loadUserData()
         self.lastChapter = 4
+        self.database = Database()
 
     def reset(self):
         self.user.removeUserData()
@@ -39,7 +41,7 @@ class Oneboard(object):
 
     def GetFAQSolution(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
-        return str(faq_index)
+        return self.database.faq.keys()[faq_index]
 
     def incrementState(self):
         self.user.chapter += 1
@@ -51,9 +53,9 @@ class Oneboard(object):
         self.user.chapter = (self.user.chapter%4)
         self.user.saveUserData()
 
-    def getStaticResource(self, topic):
-        static_info =  {'1ES':'aka.ms/1ES','Intune':'aka.ms/Intune','Ibiza':'aka.ms/Ibiza'}
-        return static_info[topic]
+    # def getStaticResource(self, topic):
+    #     static_info =  {'1ES':'aka.ms/1ES','Intune':'aka.ms/Intune','Ibiza':'aka.ms/Ibiza'}
+    #     return static_info[topic]
 
     ####Documentation for the four chapters####
     # Chapter 0: Gives the user the next thing that they'll go over
@@ -68,7 +70,7 @@ class Oneboard(object):
         # chapter(message)
 
         # ##body text is message.body["text"]
-        file = json.loads(open('../sample-journey.json').read())
+        file = json.loads(open('sample-journey.json').read())
         docs = file['docs']
 
         if(self.user.chapter == 0):
@@ -91,7 +93,7 @@ class Oneboard(object):
             message.reply("Ah. Let me see if I can help...")
             if (self.CanFindInFAQ(message, responseAI)):
                 solution = self.GetFAQSolution(message, responseAI)
-                message.reply("Can you try the following: " + solution + "and tell me if it works?")
+                message.reply("Can you try the following: LINK TO QUESTION " + solution + " and tell me if it works?")
                 self.decrementState()
             else:
                 message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")

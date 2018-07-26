@@ -21,6 +21,7 @@ class Database(object):
             "How do I write a Connect?": "answer"
         }
         self.saveDB()
+        self.confidence = 0
 
     def initDB(self):
         with open(dbDataFilePath, 'wb') as dbDataFile:
