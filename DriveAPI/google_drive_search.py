@@ -53,4 +53,4 @@ def search(query, limit=10):
         print ('Found file: %s (%s)' % (name, fileID))
                             
 setup()
-search('kiddo')
+search('Microsoft')
