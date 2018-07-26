@@ -24,8 +24,7 @@ class User(object):
         self.recommender = RecommenderAI(self.email)
 
     def addThingsToTeach(self): 
-        file = json.loads(open('sample-journey.json').read())
-        docs = file['docs']
+        file = json.loads(open('../sample-journey.json').read())
         journey = file['journey']
         positionDocs = journey['position'].get(self.position.lower(), {"docs": []})["docs"]
         roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]

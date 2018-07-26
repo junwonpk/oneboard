@@ -68,12 +68,16 @@ class Oneboard(object):
         # chapter(message)
 
         # ##body text is message.body["text"]
+        file = json.loads(open('../sample-journey.json').read())
+        docs = file['docs']
+
         if(self.user.chapter == 0):
             if (self.user.thingsToTeach):
-                next = self.user.thingsToTeach.pop()
-                message.reply("The next thing that we'll go over is " + next + ".")
+                nextItemName = self.user.thingsToTeach.pop()
+                next = docs.get(nextItemName, {"name": nextItemName, "link": "aka.ms/msw"})
+                message.reply("The next thing that we'll go over is " + next['name'] + '.')
                 resource = self.getStaticResource(next)
-                message.reply("Please take a look at " + resource + "and let me know when you finish.")
+                message.reply("Please take a look at " + next['link'] + "and let me know when you finish.")
                 self.incrementState()
             else:
                 message.reply("Awesome! Looks like you finished the onboarding process!")
