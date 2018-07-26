@@ -3,11 +3,13 @@
 
 from user import User
 from responseAI import ResponseAI
+from database import Database
 import re
 
 class Oneboard(object):
     def __init__(self):
         self.user = User.loadUserData()
+        self.database = Database()
         self.lastChapter = 4
 
     def reset(self):
@@ -39,7 +41,7 @@ class Oneboard(object):
 
     def GetFAQSolution(self, message, responseAI):
         faq_index, distance = responseAI.decide_question(message.body["text"])
-        return str(faq_index)
+        return self.database.faq.keys()[faq_index]
 
     def incrementState(self):
         self.user.chapter += 1
@@ -81,7 +83,7 @@ class Oneboard(object):
             message.reply("Let me see if I can help...")
             if (self.CanFindInFAQ(message, responseAI)):
                 solution = self.GetFAQSolution(message, responseAI)
-                message.reply("I suggest that you try the following: " + solution)
+                message.reply("I suggest that you try the following: LINK TO " + solution)
                 self.decrementState()
             else:
                 message.reply("I'm sorry, I don't know the answer to this question. Please consult your manager.")
