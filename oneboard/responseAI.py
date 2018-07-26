@@ -2,19 +2,21 @@ from gensim.models import Word2Vec
 import numpy as np
 import scipy
 import re
+from database import Database
 
 class ResponseAI(object):
 
     def __init__(self):
-        self.model = self.loadGloveModel("./data/glove.6B.300d.txt")
+        self.model = self.loadGloveModel("./data/glove.42B.300d.txt")
         self.freq_dict = self.build_frequency_dictionary()
         self.faq_vectors = [] #This is a list of SENTENCE VECTORS
         self.DICT_CONSTANT = len(self.freq_dict)
         self.yes_answers = self.clean_sentence(["got it", "awesome", "cool", "amazing", "nice", "yes", "go", "go on", "continue", "got it", "sure", "move", "move on", "ready", "onward", "done", "got it", "next"])
         self.no_answers = self.clean_sentence(["huh", "why", "what", "when", "where", "wait", "confused", "question", "show", "possible", "sorry", "stop", "no"])
-        self.yes_vectors = np.array([self.sentence2vec(ans) for ans in self.yes_answers])
-        self.no_vectors = np.array([self.sentence2vec(ans) for ans in self.no_answers])
+        self.yes_vectors = np.squeeze(np.array([self.get_sentencevec(ans) for ans in self.yes_answers]))
+        self.no_vectors = np.squeeze(np.array([self.get_sentencevec(ans) for ans in self.no_answers]))
         self.set_base_faq_sentencevecs()
+        self.database = Database()
 
     # solve glove model loading time
     def loadGloveModel(self, gloveFile):
@@ -66,6 +68,7 @@ class ResponseAI(object):
         #Sentence vector is sum of (wordvec for each word)*(1/1+f), where f is frequency.
         sentence_vec = []
         for word in line:
+            print(word)
             multiplier = (float(1e7)/float(1+self.get_weight(word)))
             wordvec = np.array([self.word_to_vec(word)])
             weighted_wordvec = multiplier*wordvec
@@ -94,22 +97,22 @@ class ResponseAI(object):
             min_values.append(scipy.spatial.distance.euclidean(question_sentencevec, self.faq_vectors[i]))
         return np.argmin(min_values), np.min(min_values)
 
-    # message is an array
-    def sentence2vec(self, message):
-        wordvec_list = []
-        for word in message:
-            # word = filter(str.isalpha, word)
-            try:
-                wordvec = self.model[word] # e.g. wordvec["emily"] = [3,5,524,234]
-                wordvec_list.append(wordvec)
-            except:
-                pass
-        if not wordvec_list:
-            return np.zeros(300)
-
-        data = np.array(wordvec_list)
-        vec = data.mean(axis=0)
-        return vec
+    # # message is an array
+    # def sentence2vec(self, message):
+    #     wordvec_list = []
+    #     for word in message:
+    #         # word = filter(str.isalpha, word)
+    #         try:
+    #             wordvec = self.model[word] # e.g. wordvec["emily"] = [3,5,524,234]
+    #             wordvec_list.append(wordvec)
+    #         except:
+    #             pass
+    #     if not wordvec_list:
+    #         return np.zeros(300)
+    #
+    #     data = np.array(wordvec_list)
+    #     vec = data.mean(axis=0)
+    #     return vec
 
     def decide_question(self, question):
         question = self.clean_line(question)
@@ -118,12 +121,16 @@ class ResponseAI(object):
         return result, confident
 
     def intentClassifier(self, message):
-        message_vec = self.sentence2vec(message.split(' '))
+        message_vec = self.get_sentencevec(message.split(' '))
 
-        no_dots = self.no_vectors.dot(message_vec)
-        max_no = no_dots.max()
+        # no_dots = self.no_vectors.dot(message_vec)
+        # max_no = no_dots.max()
+        no_scores = np.matmul(message_vec, self.no_vectors.T)
+        max_no = np.max(no_scores)
 
-        yes_dots = self.yes_vectors.dot(message_vec)
-        max_yes = yes_dots.max()
+        # yes_dots = self.yes_vectors.dot(message_vec)
+        # max_yes = yes_dots.max()
+        yes_scores = np.matmul(message_vec, self.yes_vectors.T)
+        max_yes = np.max(yes_scores)
 
         return max_yes > max_no
