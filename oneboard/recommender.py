@@ -7,10 +7,11 @@ from math import sqrt
 
 class RecommenderAI(object):
 
-	def __init__(self):
+	def __init__(self, person):
 		self.user = "Toby"
+		self.person = person
 
-	def similarity_score(self, person1,person2):
+	def similarity_score(self, person1, person2):
 
 		# Returns ratio Euclidean distance score of person1 and person2
 
@@ -36,7 +37,7 @@ class RecommenderAI(object):
 
 
 
-	def pearson_correlation(self, person1,person2):
+	def pearson_correlation(self, person1, person2):
 
 		# To get both rated items
 		both_rated = {}
@@ -70,16 +71,16 @@ class RecommenderAI(object):
 			r = numerator_value/denominator_value
 			return r
 
-	def most_similar_users(self,person,number_of_users):
+	def most_similar_users(self,number_of_users):
 		# returns the number_of_users (similar persons) for a given specific person.
-		scores = [(self.pearson_correlation(person,other_person),other_person) for other_person in dataset if  other_person != person ]
+		scores = [(self.pearson_correlation(person,other_person),other_person) for other_person in dataset if  other_person != self.person ]
 
 		# Sort the similar persons so that highest scores person will appear at the first
 		scores.sort()
 		scores.reverse()
 		return scores[0:number_of_users]
 
-	def user_recommendations(self, person):
+	def user_recommendations(self):
 
 		# Gets recommendations for a person by using a weighted average of every other user's rankings
 		totals = {}
@@ -87,9 +88,9 @@ class RecommenderAI(object):
 		rankings_list =[]
 		for other in dataset:
 			# don't compare me to myself
-			if other == person:
+			if other == self.person:
 				continue
-			sim = self.pearson_correlation(person,other)
+			sim = self.pearson_correlation(self.person, other)
 			#print ">>>>>>>",sim
 
 			# ignore scores of zero or lower
@@ -98,7 +99,7 @@ class RecommenderAI(object):
 			for item in dataset[other]:
 
 				# only score movies i haven't seen yet
-				if item not in dataset[person] or dataset[person][item] == 0:
+				if item not in dataset[self.person] or dataset[self.person][item] == 0:
 
 				# Similrity * score
 					totals.setdefault(item,0)
@@ -109,9 +110,9 @@ class RecommenderAI(object):
 
 			# Create the normalized list
 
-		rankings = [(total/simSums[item],item) for item,total in totals.items()]
+		rankings = [(total/simSums[item], item) for item, total in totals.items()]
 		rankings.sort()
 		rankings.reverse()
 		# returns the recommended items
-		recommendataions_list = [recommend_item for score,recommend_item in rankings]
+		recommendataions_list = [recommend_item for score, recommend_item in rankings]
 		return recommendataions_list
