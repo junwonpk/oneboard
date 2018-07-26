@@ -1,5 +1,7 @@
 import os
 import pickle
+from recommender import RecommenderAI
+import json
 
 userDataFilePath = './userDataFile.pickle'
 
@@ -7,16 +9,33 @@ class User(object):
     def __init__(self):
         self.name = "Junwon"
         self.email = "t-jupark@microsoft.com"
-        self.role = "a Software Engineering Intern"
-        self.team = "Intune Data Team"
+        self.role = "Software Engineering"
+        self.team = "MSN"
+        self.position = "Intern"
         self.managerName = "Somesh Goel"
         self.managerEmail = "sgoel@microsoft.com"
-        self.thingsToTeach = ["1ES", "Intune", "Ibiza"]
-        self.thingsTaught = ["Benefits", "Signature Event"]
+        self.thingsToTeach = []
+        self.thingsTaught = []
+        self.recommendedThingsToTeach = []
         self.chapter = 0
         self.saveUserData()
         self.lastUnansweredQuestion = ""
         self.faq = {}
+        self.recommender = RecommenderAI(self.email)
+
+    def addThingsToTeach(self): 
+        file = json.loads(open('sample-journey.json').read())
+        docs = file['docs']
+        journey = file['journey']
+        thingsToTeach = journey['position'][self.position.lower()] + 
+                        journey['role'][self.role.lower()] + 
+                        journey['team'][self.team.lower()]
+
+
+    def updateRecommended(self):
+        recommended = set(self.recommender.user_recommendations()) - set(self.thingsTaught)
+        self.recommendedThingsToTeach = list(recommended)
+
 
     def initUserData(self):
         with open(userDataFilePath, 'wb') as userDataFile:

@@ -6,28 +6,28 @@
       },
       "intern": {
         "name": "Microsoft Intern",
-        "docs": [1, 2, 3, 4]
+        "docs": ["1", "2", "3", "4"]
       }
     },
     "role": {
-    	"software-engineer": {
+    	"software engineering": {
     	  "name": "Software Engineering",
-        "docs": [5, 6, 7]
+        "docs": ["5", "6", "7"]
     	},
-    	"program-manager": {
+    	"program manager": {
 
     	}, 
-    	"data-scientist": {
+    	"data scientist": {
 
     	},
-    	"production-engineer": {
+    	"production engineer": {
 
     	}
     },
     "team": {
       "msn": {
         "name": "Microsoft News",
-        "docs": [8, 9, 10]
+        "docs": ["8", "9", "10"]
       }
     }
   },
@@ -55,7 +55,6 @@
     "6": {
       "name": "Cortana Wiki",
       "link": "cortanawiki.azurewebsites.net"
-"
     },
     "7": {
       "name": "Deep Symantic Similarity Metric: DSSM",
@@ -72,6 +71,6 @@
     "10": {
       "name": "Design Exploration and Priorities",
       "link": "https://microsoft.sharepoint.com/:o:/r/teams/MicrosoftNewsRedmondDesignEngineering/_layouts/15/WopiFrame.aspx?sourcedoc=%7B95DA8898-8CA4-4817-BCCA-E78F7874B21C%7D&file=Design%20Explorations%20%26%20Priorities&action=default&IsFolder=1&ListId=%7B1C6B7DD6-590C-4F69-8B53-19BDCD534E0C%7D&ListItemId=4"
-    },
+    }
   }
 }
