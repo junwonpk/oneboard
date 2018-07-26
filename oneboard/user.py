@@ -27,9 +27,10 @@ class User(object):
         file = json.loads(open('sample-journey.json').read())
         docs = file['docs']
         journey = file['journey']
-        thingsToTeach = journey['position'][self.position.lower()] + 
-                        journey['role'][self.role.lower()] + 
-                        journey['team'][self.team.lower()]
+        positionDocs = journey['position'].get(self.position.lower(), {"docs": []})["docs"]
+        roleDocs = journey['role'].get(self.role.lower(), {"docs": []})["docs"]
+        teamDocs = journey['team'].get(self.team.lower(), {"docs": []})["docs"]
+        self.thingsToTeach = positionDocs + roleDocs + teamDocs
 
 
     def updateRecommended(self):
